@@ -1,0 +1,174 @@
+{% extends 'base.html' %} {% block title %}Pending Requests{% endblock title %}
+{% block body %}
+<style>
+  body {
+    background: #f6f9fc;
+    margin-top: 20px;
+  }
+  /* booking */
+
+  .bg-light-blue {
+    background-color: #e9f7fe !important;
+    color: #3184ae;
+    padding: 7px 18px;
+    border-radius: 4px;
+  }
+
+  .bg-light-green {
+    background-color: rgba(40, 167, 69, 0.2) !important;
+    padding: 7px 18px;
+    border-radius: 4px;
+    color: #28a745 !important;
+  }
+
+  .buttons-to-right {
+    position: absolute;
+    right: 0;
+    top: 40%;
+  }
+
+  .btn-gray {
+    color: #666;
+    background-color: #eee;
+    padding: 7px 18px;
+    border-radius: 4px;
+  }
+
+  .booking:hover .buttons-to-right .btn-gray {
+    opacity: 1;
+    transition: 0.3s;
+  }
+
+  .buttons-to-right .btn-gray {
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  .btn-gray:hover {
+    background-color: #36a3f5;
+    color: #fff;
+  }
+
+  .booking {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+  }
+
+  .booking:last-child {
+    margin-bottom: 0px;
+    border-bottom: none;
+    padding-bottom: 0px;
+  }
+
+  @media screen and (max-width: 575px) {
+    .buttons-to-right {
+      top: 10%;
+    }
+    .buttons-to-right a {
+      display: block;
+      margin-bottom: 20px;
+    }
+    .buttons-to-right a:last-child {
+      margin-bottom: 0px;
+    }
+    .bg-light-blue,
+    .bg-light-green,
+    .btn-gray {
+      padding: 7px;
+    }
+  }
+
+  .card {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    box-shadow: none;
+    border: none;
+    padding: 25px;
+  }
+  .mb-5,
+  .my-5 {
+    margin-bottom: 3rem !important;
+  }
+  .msg-img {
+    margin-right: 20px;
+  }
+  .msg-img img {
+    width: 60px;
+    border-radius: 50%;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-white mb-5">
+        <div class="card-heading clearfix border-bottom mb-4">
+          <h4 class="card-title">Pending Requests</h4>
+        </div>
+        {% for i in rproject %}
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li class="position-relative booking">
+              <div class="media">
+                <div class="msg-img">
+                  <img
+                    src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                    alt=""
+                  />
+                </div>
+                <div class="media-body">
+                  <h5 class="mb-4">
+                    <a href="#">{{i.username}}</a
+                    ><span class="badge badge-primary mx-3">Pending</span>
+                  </h5>
+                  <div class="mb-3">
+                    <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
+                      >PID:</span
+                    >
+                    <span class="bg-light-blue">{{i.projectId}}</span>
+                  </div>
+                  <div class="mb-3">
+                    <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
+                      >Project Manager:</span
+                    >
+                    <span class="bg-light-blue"
+                      ><a href="/profile">Mary Smith</a></span
+                    >
+                  </div>
+                  <div class="mb-3">
+                    <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
+                      >Project:</span
+                    >
+                    <span class="bg-light-blue"
+                      ><a href="#">Payment Gateway</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="buttons-to-right">
+                <a href="/tsm/pendingrequest?val=rejected&pid={{i.projectId}}" value="reject" class="btn-gray mr-2"
+                   ><i class="far fa-times-circle mr-2"></i> Reject</a
+                >
+                <a href="/tsm/pendingrequest?val=Approved&pid={{i.projectId}}" value="approve" class="btn-gray"
+                  ><i class="far fa-check-circle mr-2"></i> Approve</a
+                >
+              </div>
+            </li>
+
+            {%endfor%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

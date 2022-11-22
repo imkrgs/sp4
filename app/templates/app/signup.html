@@ -1,0 +1,71 @@
+{% extends 'app/base.html' %}
+{% block content %}
+      <br/>
+        <div class="container-fluid gradient-custom-3">
+          <div class="mask d-flex align-items-center h-100">
+            <div class="container h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                  <div class="card mt-5" style="border-radius: 5px;">
+                    <div class="card-body mt-5">
+                      <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                      <form action=" " method="POST" onsubmit="return validateForm()">
+                          {% csrf_token %}
+                          {% if error %}
+                          <div class="alert alert-danger" role="alert">
+                            {{error}}
+                          </div>
+                          {% endif %}
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example1cg"><b>First Name*</b></label>
+                              <input type="text" name="first_name" id="form3Example1cg" value="{{values.first_name}}" class="form-control form-control-lg" placeholder="eg : John" required/>
+                            </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example1cg"><b>Last Name</b></label>
+                              <input type="text" name="last_name" id="form3Example1cg" class="form-control form-control-lg" placeholder="eg : Doe"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example1cg"><b>Username*</b></label>
+                              <input required type="text" name="username" id="form3Example1cg" class="form-control form-control-lg" placeholder="eg : johndoe" required/>
+                            </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example3cg"><b>Your Email*</b></label>
+                              <input type="email" name="email" id="form3Example3cg" class="form-control form-control-lg" required/> 
+                            </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example4cdg"> <b>Emp. ID*</b> </label>
+                              <input required type="number" name="e_id" id="form3Example4cdg" class="form-control form-control-lg" placeholder="eg: 5001" required/>
+                            </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example4cdg"> <b>TSM*</b></label>
+                              <input required type="text" name="tsm" id="form3Example4cdg" class="form-control form-control-lg" required/>                              
+                            </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example4cg"><b>Password*</b></label>
+                              <input required type="password" name="password1" id="form3Example4cg" class="form-control form-control-lg" placeholder="Will be sent to the Email" disabled/>
+                            </div>
+                            <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example4cdg"> Role </label>
+                              <input type="Text" name="role" id="form3Example4cdg" class="form-control form-control-lg" placeholder="User" disabled/>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                              <input type="Submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" value="Register">
+                            </div>
+                            <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login"
+                                class="fw-bold text-body nav-link"><u>Login here</u></a></p>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>function validateForm() {
+          let x = document.forms["myForm"]["fname"].value;
+          if (x == "") {
+            alert("Name must be filled out");
+            return false;
+          }
+        }</script>
+{% endblock %}

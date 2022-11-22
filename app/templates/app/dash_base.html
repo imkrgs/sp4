@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RTC | {{title}}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href=" {% static 'css/style.css' %}" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+      <div class="container-fluid">
+        <!-- logo image -->
+        
+        &nbsp;
+        <!-- Logo Text -->
+        <a class="navbar-brand" href="/home"><img
+          src="{% static 'images/logo.png' %}"
+          width="45"
+          alt=""
+          class="d-inline-block align-middle mr-2"
+        /><b>RTC</b></a>
+        &nbsp;
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/home"
+                >Home</a
+              >
+            </li>
+            &nbsp;
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            &nbsp;
+            <li class="nav-item">
+                <a class="nav-link " href="/all_project"
+                  >Projects</a
+                >
+            </li>
+          </ul>
+          <form class="d-flex" role="search" method="POST" action="/search_result">
+            {% csrf_token %}
+            <input
+              name="search_project"
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/logout" class="nav-link"
+                ><span class="m-2">Logout</span
+                ><i class="fa-solid fa-arrow-right-to-bracket"></i
+              ></a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li>
+            <a href="/userDashboard" class="{{dashboard}}"
+              ><i class="bx bx-grid-alt bx-md"></i>
+              <span class="logo-header">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/userProfile" class="{{profile}}"
+              ><i class="bx bx-user-pin bx-md"></i>
+              <span class="logo-header">Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="/userProjects" class="{{projects}}"
+              ><i class="bx bx-git-repo-forked bx-md"></i
+              ><span class="logo-header">Projects</span></a
+            >
+          </li>
+          <li>
+            <a href="/requestedProject" class="{{requestprojects}}"
+              ><i class="bx bx-git-repo-forked bx-md"></i
+              ><span class="logo-header">Requested Projects</span>
+            </a>
+          </li>
+          <li>
+            <a href="/userUpload" class="{{upload_project}}"
+              ><i class="bx bx-upload bx-md"></i
+              ><span class="logo-header">Upload Project</span>
+            </a>
+          </li>
+          <li>
+            <a href="/logout"
+              ><i class="bx bx-log-out-circle bx-md"></i>
+              <span class="logo-header">Logout</span></a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="header_toggle">
+              <i class="bx bx-menu btn bx-md" id="menu-toggle"></i>
+            </div>
+            {% block content %} {% endblock %}
+          </div>
+          {% block dashboard %} {% endblock %}
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <script src="{% static 'js/script.js'%}"></script>
+  </body>
+</html>

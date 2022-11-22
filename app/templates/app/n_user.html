@@ -1,0 +1,10 @@
+{% extends 'app/dash_base.html' %}
+ {% block content %}
+
+ <h2>
+{% for user in user_list %}
+   {{ user.username }}
+   <br />
+ {% endfor %}
+
+ {% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'app/dash_base.html' %} 
+{% block content %}
+<!-- projects -->
+
+{% for p in uproject %}
+
+<div class="card shadow-lg m-3" id="project-card" style="width: 18rem">
+  <div class="badge bg-dark text-wrap mt-2">
+    <span class="text-center">{{p.status}}</span> 
+  </div>
+  <img src="https://rtccreate.s3.amazonaws.com/{{p.screenshot}}" class="card-img-top mt-2" alt="..." style="height: 25vh;">
+  
+  <div class="card-body">
+    <h5 class="card-title">{{p.title}}</h5>
+    <p class="card-text">
+      {{p.description}}
+    </p>
+    <a href="https://rtccreate.s3.amazonaws.com/{{p.source}}" class="card-link text-black bg-dark rounded-2 text-white p-2">source code</a>
+    <a href="/userUpdate?id={{p.id}}" class="card-link text-black bg-info rounded-4 text-black p-2">Update</a>
+  
+  </div>
+</div>
+
+{% endfor %}
+<!-- project ends -->
+{% endblock %}

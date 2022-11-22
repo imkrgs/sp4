@@ -1,0 +1,7 @@
+Hello {{ username }} 
+
+Your account is activated.
+
+Password: {{Password}}
+
+Click Here to Login : {{link}}

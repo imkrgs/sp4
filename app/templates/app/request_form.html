@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    
+<head>
+	{% if title %}
+      <title>RTC -{{ title }}</title>
+    {% else %}
+      <title>RTC</title>
+    {% endif %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  <!-- all custom css -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"/>
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #7abecc !important;
+		}
+		.user_card {
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #74cfbf;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: #fff;
+			
+		}
+
+		.login_btn {
+			width: 100%;
+			background: #33ccff !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+		#messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
+	</style>
+
+</head>
+<body>
+  <!-- {% if message %}
+  <script>
+    swal("REQUEST SENT !", "", "success");
+  </script>
+  {%endif%} -->
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- logo image -->
+      <img
+        src="{% static 'images/logo.png' %}"
+        width="45"
+        alt=""
+        class="d-inline-block align-middle mr-2"
+      />
+      &nbsp;
+      <!-- Logo Text -->
+      <a class="navbar-brand" href="/home"><b>RTC</b></a>
+      &nbsp;
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home"
+              >Home</a
+            >
+          </li>
+          &nbsp;
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          &nbsp;
+          <li class="nav-item">
+            <abbr title="Login To View Projects">
+              <a class="nav-link disabled" href="/all_project"
+                >Projects</a
+              ></abbr
+            >
+          </li>
+        </ul>
+        <form class="d-flex" role="search" action="/userdashboard">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">
+            Search
+          </button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li>
+            <a href= "role_red" class="nav-link"
+              ><span class="m-2">Hello, <b>{{request.user.username}}</b></span
+              ><i class="fa-solid fa-user"></i
+            ></a>
+          </li>
+          <li>
+            <a href="/logout" class="nav-link"
+              ><span class="m-2">Logout</span
+              ><i class="fa-solid fa-sign-out"></i
+            ></a>
+          </li>
+          {% else %}
+          <li>
+            <a href="/login" class="nav-link"
+              ><span class="m-2">Login</span
+              ><i class="fa-solid fa-arrow-right-to-bracket"></i
+            ></a>
+          </li>
+          <li>
+            <a href="/signup" class="nav-link"
+              ><span class="m-2">Signup</span
+              ><i class="fa-solid fa-user-plus"></i
+            ></a>
+          </li>
+          {%endif%}
+          
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- navbar ends -->
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+
+
+					<h3 id="form-title">Request Project</h3>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form  action="/requestedProjectResponse" method="POST">
+            {% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+
+							<input type="text" name="username" placeholder={{username}} class="form-control" disabled>
+						</div>
+
+            
+
+            <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+							</div>
+
+							<input type="text" name="pid" placeholder="Project ID" class="form-control">
+						</div>
+            <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+              &nbsp;
+              &nbsp;
+              <h5 id="form-title">TSM : </h3>
+              &nbsp;&nbsp;
+                <select id="TSM" name="tsm">
+                  {% for i in TSMs %}
+                  <option value={{i}}>{{i}}</option>
+                  {%endfor%}
+                  
+                </select>
+						</div>
+						
+
+							<div class="d-flex justify-content-center mt-3 login_container">
+				 				<input class="btn login_btn" type="submit" value="Request">
+				   			</div>
+					</form>
+
+				</div>	
+		
+				
+			
+				</div>
+			</div>
+		</div>
+	</div>
+  <!-- footer -->
+  <footer class="bg-dark rounded-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-3 text-white mt-3">
+          <span>&copy; 2022 &middot;</span>
+        </div>
+        <div class="col-3 mt-3">
+          <a class="nav-link text-white" href="#">Privacy</a> &middot;
+        </div>
+        <div class="col-3 mt-3">
+          <a class="nav-link text-white" href="#">Terms</a>
+        </div>
+        <div class="col-3 text-white mt-3">
+          <a class="nav-link text-white float-end" href="#">Back to top</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- JS -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+
+</html>
