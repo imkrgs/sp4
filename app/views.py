@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User,auth
 from django.contrib.auth import login, logout, authenticate
-from .models import N_user, Project
+from .models import Project
 from django.contrib.auth.decorators import login_required
 import random,string
 from django.conf import settings
@@ -9,12 +9,10 @@ from tsm_app.models import request_project
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-user_list = N_user.objects.all()
-dashb = ''
+user_list = User.objects.all()
 
 
 def all_user(request):
-    user_list = N_user.objects.all()
     return render(request, 'app/n_user.html',
                   {'user_list': user_list})
 
@@ -38,49 +36,22 @@ def about(request):
     return render(request, 'app/about.html', {'title': 'About'})
 
 def user_login(request):
-    global dashb
     if request.method == 'POST':
         #fetching username and pass from login form
         username = request.POST['username']
         password = request.POST['password']
         #authenticating user
         user = auth.authenticate(username=username, password=password)
+
         #if username and password are valid(password sent on email)
         if user:
-            #creating list with username and their roles
-            valid = []
-            for i in user_list:
-                valid.append([i.username,i.role])
-
-            #fetching last login of user using username and setting value of first login
-            first=User.objects.all().filter(username=username)
-            for i in first:
-                print(i.last_login)
-                if i.last_login:
-                    first_login= False
-                else:
-                    first_login=True
             #if user is not loging for first time redirecting based on roles
-            if not first_login:
-                # print(users)
-                #print(valid)
-                #print(username)
-                for k in valid:
-                    if k[0] == username:
-                        if k[1] == 'TSM':
-                            auth.login(request, user)
-                            dashb = 'tsm-profile'
-                            return redirect('tsm-profile')
-                        elif k[1] == 'User':
-                            auth.login(request, user)
-                            dashb = 'app-userDashboard'
-                            return redirect('app-userDashboard')
+            if user.last_login is not None and user is not None:
+                auth.login(request, user)
+                return role_redirect(request)
             #if user is loging for first time then redirecting to reset password 
             else:
-                context={
-                    'username':username
-                }
-                return render(request, 'app/resetpassword.html',context)
+                return render(request, 'app/resetpassword.html',{'username':username})
         #if credentials is not correct 
         else:
             error_message = "Invalid Credentials"
@@ -133,7 +104,7 @@ def signup(request):
             'RTC',
             msg_plain,
             'djangodemo11@gmail.com',
-            ['djangodemo11@gmail.com'],
+            [email],
             fail_silently=False,
         )
         # saving to db
@@ -142,9 +113,6 @@ def signup(request):
                 username=username, password=password, email=email, first_name=first_name, last_name=last_name)
             user.save()
             print('user created')
-            N_user(username=username, #password1=password1, password2=password2,
-                   email=email, first_name=first_name, last_name=last_name, role='User').save()
-            
             return render(request, 'app/home.html', {'message': 'Signup Sucessfull'})
 
         else:
@@ -274,16 +242,6 @@ def upload_project(request):
         Project(
             title=tittle, description=description, screenshot=screenshot, source=source, user_id=user_id, status=status).save()
         
-        # #uploading to s3 
-        # upload_file_bucket='rtcdemo'
-        # sc_upload_file_key= tittle + '/' + 'sc_'+ sc
-        # # source_upload_file_key=  tittle + '/' + 'source_'+ source_name
-
-        # s3.upload_file(sc , upload_file_bucket,sc_upload_file_key )
-        # # s3.upload_fileobj(source, upload_file_bucket,source_upload_file_key )
-        # print("uploaded")
-        
-
     context = {
         'title': 'user | upload project',
         'dashboard': '',
@@ -303,8 +261,9 @@ def logout(request):
 @login_required(login_url='app-login')
 def role_redirect(request):
 
-    print(dashb)
-    return redirect(dashb)
+    if request.user.is_superuser and request.user.is_staff == False: 
+        return redirect('tsm-profile')
+    return redirect('app-userDashboard')
 
 
 @login_required(login_url='app-login')
@@ -345,8 +304,6 @@ def editResponse(request):
         last_name = request.POST['lname']
         email = request.POST['email']
         tsm = request.POST['tsm']
-        N_user.objects.filter(username=request.user.username).update(
-            first_name=first_name, last_name=last_name, email=email, tsm=tsm)
         User.objects.filter(username=request.user.username).update(
             first_name=first_name, last_name=last_name, email=email)
         print('updated!')

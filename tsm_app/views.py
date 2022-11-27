@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import request_project
-from app.models import Project, N_user
+from app.models import Project
+from django.contrib.auth.models import User
 # Create your views here.
 
-tsm_list = N_user.objects.all()
+tsm_list = User.objects.all()
 
 
 @login_required(login_url='app-login')

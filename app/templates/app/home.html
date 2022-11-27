@@ -2,7 +2,12 @@
 {% block content %}
 {% if message %}
 <script>
-  alert('{{ message }}');
+  swal({
+  title: "user created 👍",
+  text: "password send in email 👏",
+  icon: "success",
+  button: "✔️",
+});
 </script>
 {% endif %}
 <div class="container-fluid px-0">

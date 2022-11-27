@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'rtc',
         'USER': 'postgres',
-        'PASSWORD': 'root',
+        'PASSWORD': 'admin',
         'HOST': 'localhost'
     }
 }
@@ -135,17 +135,17 @@ MEDIA_URL = '/media/'
 
 #added to save source code and screenshot to s3 
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = ''
+# AWS_ACCESS_KEY_ID = ''
 
-AWS_SECRET_ACCESS_KEY = ''
+# AWS_SECRET_ACCESS_KEY = ''
 
-AWS_STORAGE_BUCKET_NAME = 'rtccreate'
+# AWS_STORAGE_BUCKET_NAME = 'rtccreate'
 
-AWS_QUERYSTRING_AUTH = False
+# AWS_QUERYSTRING_AUTH = False
 
 
 #added to send email 
