@@ -283,14 +283,9 @@ def allProjects(request):
 
 @login_required(login_url='app-login')
 def request_form(request):
-    valid = []
-    for i in user_list:
-        if i.role == 'TSM':
-            valid.append(i.username)
-    print(valid)
-
+    tsm = user_list.filter(is_superuser=True,is_staff=False)
     context = {
-        'TSMs': valid,
+        'tsms':tsm,
         'username': request.user.username
     }
 

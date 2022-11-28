@@ -137,27 +137,23 @@
                   </div>
                   <div class="mb-3">
                     <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                      >Project Manager:</span
-                    >
-                    <span class="bg-light-blue"
-                      ><a href="/profile">Mary Smith</a></span
-                    >
-                  </div>
-                  <div class="mb-3">
-                    <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
                       >Project:</span
                     >
-                    <span class="bg-light-blue"
-                      ><a href="#">Payment Gateway</a></span
-                    >
+                    <span class="bg-light-blue"><a href="#">{{i.pro}}</a></span>
                   </div>
                 </div>
               </div>
               <div class="buttons-to-right">
-                <a href="/tsm/pendingrequest?val=rejected&pid={{i.projectId}}" value="reject" class="btn-gray mr-2"
-                   ><i class="far fa-times-circle mr-2"></i> Reject</a
+                <a
+                  href="/tsm/pendingrequest?val=rejected&pid={{i.projectId}}"
+                  value="reject"
+                  class="btn-gray mr-2"
+                  ><i class="far fa-times-circle mr-2"></i> Reject</a
                 >
-                <a href="/tsm/pendingrequest?val=Approved&pid={{i.projectId}}" value="approve" class="btn-gray"
+                <a
+                  href="/tsm/pendingrequest?val=Approved&pid={{i.projectId}}"
+                  value="approve"
+                  class="btn-gray"
                   ><i class="far fa-check-circle mr-2"></i> Approve</a
                 >
               </div>

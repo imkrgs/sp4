@@ -153,7 +153,7 @@
           {% if user.is_authenticated %}
           <li>
             <a href= "role_red" class="nav-link"
-              ><span class="m-2">Hello, <b>{{request.user.username}}</b></span
+              ><span class="m-2">Hello, <b>{{request.user.username}}</b></span  `
               ><i class="fa-solid fa-user"></i
             ></a>
           </li>
@@ -221,8 +221,8 @@
               <h5 id="form-title">TSM : </h3>
               &nbsp;&nbsp;
                 <select id="TSM" name="tsm">
-                  {% for i in TSMs %}
-                  <option value={{i}}>{{i}}</option>
+                  {% for i in tsms %}
+                  <option value={{i.username}}>{{i.username}}</option>
                   {%endfor%}
                   
                 </select>

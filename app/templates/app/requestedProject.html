@@ -1,5 +1,4 @@
-{% extends 'app/dash_base.html' %}
-{% block content %}
+{% extends 'app/dash_base.html' %} {% block content %}
 <br />
 <br />
 
@@ -8,42 +7,48 @@
   swal("ERROR", "Already Requested !", "error");
 </script>
 {% endif %}
-<div class="header text-center h1 text-dark mt-5">Requested Projects </div>
+<div class="header text-center h1 text-dark mt-5">Requested Projects</div>
 
-  <!-- projects -->
+<!-- projects -->
 
-    <div class="container-fluid">
-      <div class="row">
-        {% for p in uproject %}
-          {% for x in ref %}
-          {% if x.id == p.projectId %}
-          <div class="card shadow-lg m-3" id="project-card" style="width: 18rem">
-            <div class="badge bg-dark text-wrap mt-2">
-              <span class="text-center">{{p.status}}</span> 
-            </div>
-            <img src="https://rtccreate.s3.amazonaws.com/{{x.screenshot}}" class="card-img-top mt-2" alt="..." style="height: 25vh;">
-            
-            <div class="card-body">
-              <h5 class="card-id">PID: {{p.projectId}}</h5>
-              <h5 class="card-title">TSM: {{p.tsm}}</h5>
-              <p class="card-text">
-                {{x.description}}
-              </p>
-              {% if p.status == 'pending' %}
-              <h5 class="bg-dark text-white rounded text-center">Requested</h5>
-              {%endif%}
-              {% if p.status == 'Approved' %}
-              <a href="https://rtccreate.s3.amazonaws.com/{{x.source}}" class="card-link text-black bg-dark rounded-2 text-white p-2">source code</a>
-              {%endif%}
-              {% if p.status == 'rejected' %}
-              <a href="/request_form" class="card-link text-black bg-dark rounded-2 text-white p-2"> Request Again</a>
-              {%endif%}
-            </div>
-          </div>
-          {%endif%}
-          {% endfor %}
-        {% endfor %}
+<div class="container-fluid">
+  <div class="row">
+    {% for p in uproject %} {% for x in ref %} {% if x.id == p.projectId %}
+    <div class="card shadow-lg m-3" id="project-card" style="width: 18rem">
+      <div class="badge bg-dark text-wrap mt-2">
+        <span class="text-center">{{p.status}}</span>
+      </div>
+      <img
+        src="http://127.0.0.1:8000/media/{{x.screenshot}}"
+        class="card-img-top mt-2"
+        alt="..."
+        style="height: 25vh"
+      />
+
+      <div class="card-body">
+        <h5 class="card-id">PID: {{p.projectId}}</h5>
+        <h5 class="card-title">TSM: {{p.tsm}}</h5>
+        <p class="card-text">{{x.description}}</p>
+        {% if p.status == 'pending' %}
+        <h5 class="bg-dark text-white rounded text-center">Requested</h5>
+        {%endif%} {% if p.status == 'Approved' %}
+        <a
+          href="http://127.0.0.1:8000/media/{{x.source}}"
+          class="card-link text-black bg-dark rounded-2 text-white p-2"
+          >source code</a
+        >
+        {%endif%} {% if p.status == 'rejected' %}
+        <a
+          href="/request_form"
+          class="card-link text-black bg-dark rounded-2 text-white p-2"
+        >
+          Request Again</a
+        >
+        {%endif%}
       </div>
     </div>
-  <!-- project ends -->
+    {%endif%} {% endfor %} {% endfor %}
+  </div>
+</div>
+<!-- project ends -->
 {% endblock %}
